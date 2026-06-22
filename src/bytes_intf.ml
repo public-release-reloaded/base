@@ -56,7 +56,7 @@ module type Bytes = sig
   [@@zero_alloc]
 
   [%%template:
-  [@@@alloc.default a @ l = (heap @ global, stack @ local)]
+  [@@@alloc.default a @ l = (heap @ global, stack_local)]
 
   (** [create len] returns a newly-allocated and uninitialized byte sequence of length
       [len]. No guarantees are made about the contents of the return value. *)
@@ -172,7 +172,7 @@ module type Bytes = sig
   val tr_multi : target:string -> replacement:string -> (t -> unit) Staged.t
 
   [%%template:
-  [@@@alloc.default a @ l = (heap @ global, stack @ local)]
+  [@@@alloc.default a @ l = (heap @ global, stack_local)]
 
   (** [to_list t] returns the bytes in [t] as a list of chars. *)
   val to_list : t -> char list

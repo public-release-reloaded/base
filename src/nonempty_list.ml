@@ -659,7 +659,7 @@ Indexed_container.Make [@modality portable] [@alloc stack] (struct
   end)
 
 let is_empty (_ :: _) = false
-let to_list = (to_list [@mode l]) [@@alloc a @ l = stack @ local]
+let to_list = (to_list [@mode l]) [@@alloc a @ l = stack_local]
 let to_array = From_indexed_container_make.to_array
 
 [%%template

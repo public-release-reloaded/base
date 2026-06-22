@@ -43,7 +43,7 @@ module Definitions = struct
   type ('src, 'dst) blito_global =
     src:'src -> ?src_pos:int -> ?src_len:int -> dst:'dst -> ?dst_pos:int -> unit -> unit
 
-  [@@@alloc.default a @ l = (heap @ global, stack @ local)]
+  [@@@alloc.default a @ l = (heap @ global, stack_local)]
   [@@@mode.default u = (aliased, unique)]
 
   (** If [sub : (src, dst) sub], then [sub ~src ~pos ~len] returns a sequence of type
@@ -224,7 +224,7 @@ module type Blit = sig
   end
 
   [@@@mode.default u = (aliased, unique), v = (read_write, read, immutable)]
-  [@@@alloc.default a @ l = (heap @ global, stack @ local)]
+  [@@@alloc.default a @ l = (heap @ global, stack_local)]
 
   (** There are various [Make*] functors that turn an [unsafe_blit] function into a [blit]
       function. The functors differ in whether the sequence type is monomorphic or

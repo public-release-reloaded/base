@@ -301,8 +301,8 @@ module Definitions = struct
         {v
         let h =
           Hashtbl.create_mapped (module Int)
-            ~get_key:(local_ (fun x -> x))
-            ~get_data:(local_ (fun x -> x + 1))
+            ~get_key:((fun x -> x))
+            ~get_data:((fun x -> x + 1))
            [1; 2; 3];;
         val h : [ `Duplicate_keys of int list | `Ok of (int, int) Hashtbl.t ] = `Ok <abstr>
 
@@ -365,9 +365,9 @@ module Definitions = struct
 
         {v
          Hashtbl.group (module Int)
-           ~get_key:(local_ (fun x -> x / 2))
-           ~get_data:(local_ (fun x -> x))
-           ~combine:(local_ (fun x y -> x * y))
+           ~get_key:((fun x -> x / 2))
+           ~get_data:((fun x -> x))
+           ~combine:((fun x y -> x * y))
             [ 1; 2; 3; 4]
          |> Hashtbl.to_alist;;
          - : (int * int) list = [(2, 4); (1, 6); (0, 1)]

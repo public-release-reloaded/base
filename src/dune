@@ -17,6 +17,7 @@
    (:include mpopcnt.sexp)))
  (name base)
  (public_name base)
+ (flags (:standard -w -22-32-55-67))
  (ocamlopt_flags
   :standard
   (:include ocamlopt-flags))

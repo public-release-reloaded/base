@@ -94,7 +94,7 @@ module type String = sig
   type t = string [@@deriving globalize, sexp ~stackify, sexp_grammar]
 
   [%%template:
-  [@@@alloc.default a @ m = (heap @ global, stack @ local)]
+  [@@@alloc.default a @ m = (heap @ global, stack_local)]
 
   val sub : t -> pos:int -> len:int -> t
 
@@ -129,7 +129,7 @@ module type String = sig
     -> char
     = "%string_unsafe_get"
 
-  val%template make : int -> char -> t [@@alloc a @ m = (heap @ global, stack @ local)]
+  val%template make : int -> char -> t [@@alloc a @ m = (heap @ global, stack_local)]
 
   (** String append. Also available unqualified, but re-exported here for documentation
       purposes.
@@ -140,7 +140,7 @@ module type String = sig
   val ( ^ ) : t -> t -> t
 
   [%%template:
-  [@@@alloc.default a @ m = (heap @ global, stack @ local)]
+  [@@@alloc.default a @ m = (heap @ global, stack_local)]
 
   val append : t -> t -> t
 
@@ -193,7 +193,7 @@ module type String = sig
     val substr_index_all : t -> may_overlap:bool -> pattern:t -> int list
 
     [%%template:
-    [@@@alloc.default a @ m = (heap @ global, stack @ local)]
+    [@@@alloc.default a @ m = (heap @ global, stack_local)]
 
     val substr_replace_first : ?pos:int -> t -> pattern:t -> with_:t -> t
     val substr_replace_all : t -> pattern:t -> with_:t -> t]
@@ -235,7 +235,7 @@ module type String = sig
     (** [create pattern] preprocesses [pattern] as per KMP, building an [int array] of
         length [length pattern]. All inputs are valid. *)
     val%template create : ?case_sensitive:bool (** default = true *) -> string -> t
-    [@@alloc a @ m = (heap @ global, stack @ local)]
+    [@@alloc a @ m = (heap @ global, stack_local)]
 
     (** [pattern t] returns the string pattern used to create [t]. *)
     val%template pattern : t -> string
@@ -265,7 +265,7 @@ module type String = sig
     val index_all : t -> may_overlap:bool -> in_:string -> int list
 
     [%%template:
-    [@@@alloc.default a @ m = (heap @ global, stack @ local)]
+    [@@@alloc.default a @ m = (heap @ global, stack_local)]
 
     val replace_first : ?pos:int -> t -> in_:string -> with_:string -> string
 
@@ -317,7 +317,7 @@ module type String = sig
   val substr_index_all : t -> may_overlap:bool -> pattern:t -> int list
 
   [%%template:
-  [@@@alloc.default a @ m = (heap @ global, stack @ local)]
+  [@@@alloc.default a @ m = (heap @ global, stack_local)]
 
   val substr_replace_first : ?pos:int -> t -> pattern:t -> with_:t -> t
 
@@ -361,7 +361,7 @@ module type String = sig
   val rsplit2 : t -> on:char -> (t * t) option
 
   [%%template:
-  [@@@alloc.default a @ m = (heap @ global, stack @ local)]
+  [@@@alloc.default a @ m = (heap @ global, stack_local)]
 
   (** [split s ~on] returns a list of substrings of [s] that are separated by [on].
       Consecutive [on] characters will cause multiple empty strings in the result.
@@ -413,7 +413,7 @@ module type String = sig
   (** [tr ~target ~replacement s] replaces every instance of [target] in [s] with
       [replacement]. *)
   val%template tr : target:char -> replacement:char -> t -> t
-  [@@alloc a @ m = (heap @ global, stack @ local)]
+  [@@alloc a @ m = (heap @ global, stack_local)]
 
   (** [tr_multi ~target ~replacement] returns a function that replaces every instance of a
       character in [target] with the corresponding character in [replacement].
@@ -452,7 +452,7 @@ module type String = sig
   val chop_prefix_if_exists : t -> prefix:t -> t
 
   [%%template:
-  [@@@alloc.default a @ m = (heap @ global, stack @ local)]
+  [@@@alloc.default a @ m = (heap @ global, stack_local)]
 
   (** [suffix s n] returns the longest suffix of [s] of length less than or equal to [n]. *)
   val suffix : t -> int -> t

@@ -11,7 +11,7 @@ let%template[@mode l = (global, local), u = unique] possibly_unsafe_bytes_to_str
 
 [%%template
 [@@@mode.default u = (aliased, unique), v = (read_write, read, immutable)]
-[@@@alloc.default a @ l = (heap @ global, stack @ local)]
+[@@@alloc.default a @ l = (heap @ global, stack_local)]
 
 module%template.portable Make1_phantom2_distinct
     (Src : sig

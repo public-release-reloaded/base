@@ -92,7 +92,7 @@ external unsafe_create_local : int -> bytes = "Base_unsafe_create_local_bytes" [
 val create_local : int -> bytes [@@zero_alloc]
 
 [%%template:
-[@@@alloc.default a @ l = (heap @ global, stack @ local)]
+[@@@alloc.default a @ l = (heap @ global, stack_local)]
 
 val create : int -> bytes [@@zero_alloc_if_stack a]
 val make : int -> char -> bytes [@@zero_alloc_if_stack a]

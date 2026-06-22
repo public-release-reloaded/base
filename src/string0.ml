@@ -629,7 +629,7 @@ let%template split_lines =
 [@@alloc a @ m = (stack_local, heap_global)]
 ;;
 
-let%template[@alloc a @ lo = (heap @ global, stack @ local)] init n ~f =
+let%template[@alloc a @ lo = (heap @ global, stack_local)] init n ~f =
   if n < 0 then Printf.invalid_argf "String.init %d" n ();
   (let t = (Bytes.create [@alloc a]) n in
    for i = 0 to n - 1 do

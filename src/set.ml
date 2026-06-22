@@ -1865,7 +1865,7 @@ module type Hash_fold_m = Hasher.S
 
 let%template[@alloc a @ m = (heap_global, stack_local)] sexp_of_m__t
   (type elt)
-  (module Elt : Sexp_of_m with type t = elt[@alloc a])
+  ((module Elt) : (module Sexp_of_m with type t = elt)[@alloc a])
   t
   =
   (sexp_of_t [@alloc a]) (Elt.sexp_of_t [@alloc a]) t [@exclave_if_stack a]
