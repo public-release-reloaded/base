@@ -3972,7 +3972,7 @@ module type Globalize_m = sig end
 
 let%template[@alloc a @ m = (heap_global, stack_local)] sexp_of_m__t
   (type k)
-  (module K : Sexp_of_m with type t = k[@alloc a])
+  ((module K) : (module Sexp_of_m with type t = k)[@alloc a])
   sexp_of_v
   t
   =

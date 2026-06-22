@@ -28,7 +28,7 @@ type elt = char
 let invariant (_ : t) = ()
 
 [%%template
-[@@@alloc.default a @ l = (heap @ global, stack @ local)]
+[@@@alloc.default a @ l = (heap @ global, stack_local)]
 
 (* This is copied/adapted from 'blit.ml'. [sub], [subo] could be implemented using
    [Blit.Make(Bytes)] plus unsafe casts to/from string but were inlined here to avoid
@@ -597,7 +597,7 @@ end
 let of_string = Fn.id
 let to_string = Fn.id
 
-let%template[@alloc a @ l = (heap @ global, stack @ local)] to_list =
+let%template[@alloc a @ l = (heap @ global, stack_local)] to_list =
   let rec loop s acc i =
     if i < 0 then acc else loop s (s.[i] :: acc) (i - 1) [@exclave_if_stack a]
   in

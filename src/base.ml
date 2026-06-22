@@ -71,6 +71,8 @@ include (
     with module Sys := Shadow_stdlib.Sys
     with module Uchar := Shadow_stdlib.Uchar
     with module Unit := Shadow_stdlib.Unit
+    (* Modules defined in Base that are also in OCaml 5's stdlib *)
+    with module Iarray := Shadow_stdlib.Iarray
     (* OCaml 5-related modules we don't want to start shadowing yet. *)
     with module Domain := Shadow_stdlib.Domain
     with module Type := Shadow_stdlib.Type

@@ -24,7 +24,7 @@ val ( ^ ) : string -> string -> string
 val capitalize : string -> string
 val compare : string -> string -> int
 
-val%template escaped : string -> string [@@alloc a @ l = (heap @ global, stack @ local)]
+val%template escaped : string -> string [@@alloc a @ l = (heap @ global, stack_local)]
 
 val sub : string -> pos:int -> len:int -> string
 val uncapitalize : string -> string
@@ -58,7 +58,7 @@ val unsafe_blits
   -> unit
 
 [%%template:
-[@@@alloc.default a @ m = (heap @ global, stack @ local)]
+[@@@alloc.default a @ m = (heap @ global, stack_local)]
 
 (** [init n ~f] is equivalent to [of_list [f 0; f 1; ...; f (n-1)]]. It raises an
     exception if [n < 0]. *)
