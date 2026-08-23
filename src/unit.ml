@@ -2,7 +2,7 @@ open! Import
 
 module T = struct
   type t = unit
-  [@@deriving enumerate, globalize, hash, sexp ~stackify ~unboxed, sexp_grammar]
+  [@@deriving enumerate, globalize, hash, sexp ~stackify, sexp_grammar]
 
   let compare _ _ = 0
   let%template[@mode local] compare _ _ = 0

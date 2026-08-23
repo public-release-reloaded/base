@@ -4,7 +4,7 @@ module Sexp = Sexp0
 
 module T = struct
   module T0 = struct
-    type t = int64 [@@deriving globalize, hash, of_sexp ~unboxed, sexp_grammar]
+    type t = int64 [@@deriving globalize, hash, of_sexp, sexp_grammar]
 
     let%template[@alloc a = (heap, stack)] to_string =
       (Integer_to_string.int64_to_string [@alloc a])

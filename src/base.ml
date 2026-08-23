@@ -217,7 +217,7 @@ module Export = struct
     , equal ~localize
     , globalize
     , hash
-    , sexp ~stackify ~unboxed
+    , sexp ~stackify
     , sexp_grammar]
 
   type char = Char.t
@@ -226,7 +226,7 @@ module Export = struct
     , equal ~localize
     , globalize
     , hash
-    , sexp ~stackify ~unboxed
+    , sexp ~stackify
     , sexp_grammar]
 
   type exn = Exn.t [@@deriving sexp_of]
@@ -237,7 +237,7 @@ module Export = struct
     , equal ~localize
     , globalize
     , hash
-    , sexp ~stackify ~unboxed
+    , sexp ~stackify
     , sexp_grammar]
 
   type 'a iarray = 'a Iarray.t
@@ -257,7 +257,7 @@ module Export = struct
     , equal ~localize
     , globalize
     , hash
-    , sexp ~stackify ~unboxed
+    , sexp ~stackify
     , sexp_grammar]
 
   type int64 = Int64.t
@@ -266,7 +266,7 @@ module Export = struct
     , equal ~localize
     , globalize
     , hash
-    , sexp ~stackify ~unboxed
+    , sexp ~stackify
     , sexp_grammar]
 
   type 'a list = 'a List.t
@@ -279,7 +279,7 @@ module Export = struct
     , equal ~localize
     , globalize
     , hash
-    , sexp ~stackify ~unboxed
+    , sexp ~stackify
     , sexp_grammar]
 
   type 'a option = 'a Option.t
@@ -317,7 +317,7 @@ module Export = struct
     , equal ~localize
     , globalize
     , hash
-    , sexp ~stackify ~unboxed
+    , sexp ~stackify
     , sexp_grammar]
 
   (** Format stuff *)

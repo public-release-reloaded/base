@@ -5,7 +5,7 @@ include Nativeint_replace_polymorphic_compare
 
 module T = struct
   module T0 = struct
-    type t = nativeint [@@deriving globalize, hash, of_sexp ~unboxed, sexp_grammar]
+    type t = nativeint [@@deriving globalize, hash, of_sexp, sexp_grammar]
 
     let%template[@alloc a = (heap, stack)] to_string =
       (Integer_to_string.nativeint_to_string [@alloc a])

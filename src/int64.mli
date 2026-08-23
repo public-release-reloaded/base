@@ -2,7 +2,7 @@
 
 open! Import
 
-type t = int64 [@@deriving globalize, sexp ~stackify ~unboxed]
+type t = int64 [@@deriving globalize, sexp ~stackify]
 
 include Int.S with type t := t
 include Replace_polymorphic_compare.S with type t := t
