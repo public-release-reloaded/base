@@ -272,14 +272,20 @@ include struct
   let set_uchar_utf_32be b i c = set_utf_32_uchar ~set_int32:set_int32_be b i c
 end
 
-external unsafe_create_local : int -> bytes = "Base_unsafe_create_local_bytes" [@@noalloc]
+(* On OxCaml [Base_unsafe_create_local_bytes] allocates in the local (stack)
+   region, so it genuinely performs no GC-heap allocation and the [@@noalloc]
+   annotation is truthful.  On stock OCaml there is no local region: the stub
+   allocates on the GC heap (via [caml_alloc_string]).  Declaring such a call
+   [@@noalloc] tells the compiler no GC can occur across it, so the call skips
+   the GC safepoint and does not sync the allocation pointer — the freshly
+   created bytes then get clobbered by the next allocation, corrupting the
+   result (observed as a segfault in [String.filter_map] et al.).  We therefore
+   route [create_local] through the ordinary allocating [create] and drop the
+   [@zero_alloc]/[@@noalloc] assertions, which cannot hold when the value lives
+   on the heap. *)
+let create_local len = create len
 
-let[@zero_alloc] create_local len =
-  if len > Sys0.max_string_length then invalid_arg "Bytes.create_local";
-  unsafe_create_local len
-;;
-
-let%template[@alloc stack] create x = create_local x [@@zero_alloc]
+let%template[@alloc stack] create x = create_local x
 
 external unsafe_fill : bytes -> pos:int -> len:int -> char -> unit = "caml_fill_bytes"
 [@@noalloc]

@@ -88,8 +88,9 @@ external unsafe_fill : bytes -> pos:int -> len:int -> char -> unit = "caml_fill_
 val fill : bytes -> pos:int -> len:int -> char -> unit
 val empty : bytes
 val get_empty : unit -> bytes [@@zero_alloc]
-external unsafe_create_local : int -> bytes = "Base_unsafe_create_local_bytes" [@@noalloc]
-val create_local : int -> bytes [@@zero_alloc]
+(* On stock OCaml [create_local] is an ordinary heap allocation (there is no
+   local region); it cannot be [@zero_alloc].  See the note in bytes0.ml. *)
+val create_local : int -> bytes
 
 [%%template:
 [@@@alloc.default a @ l = (heap @ global, stack_local)]
