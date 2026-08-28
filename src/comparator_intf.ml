@@ -78,9 +78,17 @@ module type Comparator = sig
       In OxCaml, [('a, 'witness) t] additionally tracks whether or not the underlying
       comparison function is portable using the ['witness] parameter - if the ['witness]
       type crosses portability, then the comparison function is known to be portable. *)
-  type ('a, 'witness) t
+  type ('a, 'witness) t = private
+    { compare : 'a -> 'a -> int
+    ; sexp_of_t : 'a -> Sexp.t
+    }
 
-  (*_ See the SAFETY comment in the .ml file *)
+  (*_ See the SAFETY comment in the .ml file.
+
+     The type is exposed as a [private] record (rather than abstract) so that external
+     code can read the [compare] and [sexp_of_t] fields directly, matching how [Base]
+     historically exposed this type.  [private] keeps construction internal to [Base],
+     preserving the witness-based safety invariant described in the .ml. *)
 
   val compare : ('a, 'witness) t -> 'a -> 'a -> int
   val sexp_of_t : ('a, 'witness) t -> 'a -> Sexp.t
